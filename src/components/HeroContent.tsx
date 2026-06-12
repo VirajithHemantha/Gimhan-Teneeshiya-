@@ -64,7 +64,7 @@ export const HeroContent: React.FC = () => {
         </div>
         
         <p className="text-sm sm:text-base font-light leading-snug font-sans" style={{ color: "rgba(255,255,255,0.82)" }}>Saturday, 18th of July 2026</p>
-        <p className="mt-2 text-xs sm:text-sm font-light font-sans" style={{ color: "rgba(232,197,71,0.72)" }}>Kingsbury Hotel Colombo (Victoria Hall)</p>
+        <p className="mt-2 text-xs sm:text-sm font-light font-sans" style={{ color: "rgba(232,197,71,0.72)" }}>The Kingsbury Colombo (Victorian Ballroom)</p>
       </motion.div>
 
       <motion.div 

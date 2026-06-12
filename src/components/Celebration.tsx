@@ -70,8 +70,8 @@ export const Celebration: React.FC = () => {
             <div className="space-y-2.5 text-sm font-light leading-relaxed font-sans" style={{ color: "rgba(255,255,255,0.7)" }}>
               <p>Saturday, 18th of July 2026</p>
               <p>6.30 pm to 11.00 pm</p>
-              <p>Kingsbury Hotel Colombo</p>
-              <p className="text-xs opacity-80">(Victoria Hall)</p>
+              <p>The Kingsbury Colombo</p>
+              <p className="text-xs opacity-80">(Victorian Ballroom)</p>
             </div>
           </motion.div>
         </div>
