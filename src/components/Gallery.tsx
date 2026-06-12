@@ -16,13 +16,13 @@ const galleryImages = [
   },
   {
     id: 3,
-    src: "/2026.07.16-20260612T100209Z-3-001/my/DSC02028.jpg",
+    src: "/2026.07.16-20260612T100209Z-3-001/my/RWP01348.jpg",
     aspectRatio: "1/1",
     rotate: "-0.35deg"
   },
   {
     id: 4,
-    src: "/2026.07.16-20260612T100209Z-3-001/my/DSC02174.jpg",
+    src: "/2026.07.16-20260612T100209Z-3-001/my/RWP01402.jpg",
     aspectRatio: "2/3",
     rotate: "0deg"
   },

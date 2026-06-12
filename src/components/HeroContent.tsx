@@ -6,7 +6,7 @@ export const HeroContent: React.FC = () => {
     <section aria-label="Hero — Save the Date" className="relative min-h-[100dvh] overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 h-[115%] -top-[7.5%]" style={{ transform: "translateY(2.07039%)" }}>
         <img 
-          src="/2026.07.16-20260612T100209Z-3-001/my/RWP00108.jpg" 
+          src="/2026.07.16-20260612T100209Z-3-001/my/RWP00171.jpg" 
           alt="Gimhan and Teneeshiya wedding" 
           className="h-full w-full object-cover object-[center_22%]" 
           loading="eager" 

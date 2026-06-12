@@ -36,7 +36,7 @@ export const NoteFromUs: React.FC = () => {
           >
             <div className="relative mx-auto w-full max-w-sm md:max-w-none px-3 py-6 sm:px-4 sm:py-8">
               <div className="overflow-hidden rotate-[2deg] origin-center" style={{ border: "1.5px solid rgba(212,175,55,0.48)", boxShadow: "0 14px 44px -12px rgba(212,175,55,0.28), 0 24px 56px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,55,0.18)" }}>
-                <img src="/2026.07.16-20260612T100209Z-3-001/my/RWP00171.jpg" alt="A moment captured" className="aspect-[3/4] w-full object-cover" loading="lazy" decoding="async" style={{ filter: "saturate(0.96) contrast(1.01)" }} />
+                <img src="/2026.07.16-20260612T100209Z-3-001/my/RWP00916.jpg" alt="A moment captured" className="aspect-[3/4] w-full object-cover" loading="lazy" decoding="async" style={{ filter: "saturate(0.96) contrast(1.01)" }} />
               </div>
             </div>
           </motion.div>
@@ -54,8 +54,8 @@ export const NoteFromUs: React.FC = () => {
             <p className="font-display font-light italic leading-[1.4] px-2" style={{ fontSize: "clamp(1.5rem, 4vw, 2.4rem)", color: "rgba(255, 252, 245, 0.88)", marginTop: "-1rem" }}>
               With hearts full of love, we, along with our parents 
               <span className="block mt-4 mb-4 text-[#B8942A]" style={{ fontSize: "clamp(1.2rem, 3vw, 1.8rem)" }}>
-                Pradeep Senanayeka &amp; Shanika<br/>
-                Sampath Nanayakkara &amp; Tharanga
+                Mr &amp; Mrs Pradeep Senanayake<br/>
+                Mr &amp; Mrs Sampath Nanayakkara
               </span>
               warmly invite you to join us as we begin our new life together. Your presence will be a true blessing to us as we celebrate this sacred union… “Therefore what God has joined together, let no one separate.” – Mark 10:9 …We look forward to sharing this joyful and blessed day with you! ✨
             </p>
