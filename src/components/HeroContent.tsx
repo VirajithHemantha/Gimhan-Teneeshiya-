@@ -63,7 +63,7 @@ export const HeroContent: React.FC = () => {
           <div className="flex-1 h-px" style={{ background: "linear-gradient(270deg, transparent, #D4AF37bb)" }} />
         </div>
         
-        <p className="text-sm sm:text-base font-light leading-snug font-sans" style={{ color: "rgba(255,255,255,0.82)" }}>Wednesday, 22nd of July 2026</p>
+        <p className="text-sm sm:text-base font-light leading-snug font-sans" style={{ color: "rgba(255,255,255,0.82)" }}>Saturday, 18th of July 2026</p>
         <p className="mt-2 text-xs sm:text-sm font-light font-sans" style={{ color: "rgba(232,197,71,0.72)" }}>Kingsbury Hotel Colombo (Victoria Hall)</p>
       </motion.div>
 

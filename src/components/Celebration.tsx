@@ -68,7 +68,7 @@ export const Celebration: React.FC = () => {
             <h3 className="font-display text-2xl sm:text-3xl font-light italic mb-2" style={{ color: "#E8C547" }}>The Celebration</h3>
             <div className="h-px w-10 mx-auto mb-5" style={{ background: "linear-gradient(90deg, transparent, #D4AF3788, transparent)" }} />
             <div className="space-y-2.5 text-sm font-light leading-relaxed font-sans" style={{ color: "rgba(255,255,255,0.7)" }}>
-              <p>Wednesday, 22nd of July 2026</p>
+              <p>Saturday, 18th of July 2026</p>
               <p>6.30 pm to 11.00 pm</p>
               <p>Kingsbury Hotel Colombo</p>
               <p className="text-xs opacity-80">(Victoria Hall)</p>

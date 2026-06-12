@@ -22,7 +22,7 @@ export default function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const weddingDate = new Date('2026-07-22T11:30:00');
+  const weddingDate = new Date('2026-07-18T11:30:00');
 
   const startMusic = () => {
     if (audioRef.current && !isMusicPlaying) {
