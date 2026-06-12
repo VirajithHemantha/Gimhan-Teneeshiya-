@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
           With Love, Until Then
         </h2>
         <p className="font-sans text-[11px] font-light tracking-[0.35em] uppercase mb-7 text-white/30">
-          22/07/2026
+          18/07/2026
         </p>
         
         <div>
