@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { submitToGoogleSheet } from '../googleSheets';
 
 export const RSVPForm: React.FC = () => {
+  const [name, setName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleRSVP = async (status: 'Accepts' | 'Declines') => {
+    if (!name.trim()) {
+      setError('Please enter your name');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      await submitToGoogleSheet('rsvp', { 
+        name, 
+        status, 
+        submittedAt: new Date().toISOString() 
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to submit RSVP. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div id="rsvp" className="midnight-luxe-rsvp">
       <style dangerouslySetInnerHTML={{__html: `
@@ -9,17 +38,21 @@ export const RSVPForm: React.FC = () => {
           transition: transform 0.2s cubic-bezier(0.22,1,0.36,1),
                       box-shadow 0.2s cubic-bezier(0.22,1,0.36,1);
         }
-        .midnight-luxe-rsvp button:first-of-type:hover {
+        .midnight-luxe-rsvp button:not(:disabled):first-of-type:hover {
           transform: translateY(-2px);
           box-shadow: 0 0 0 3px rgba(232,197,71,0.28), 0 8px 24px -4px rgba(212,175,55,0.35);
         }
-        .midnight-luxe-rsvp button:last-of-type:hover {
+        .midnight-luxe-rsvp button:not(:disabled):last-of-type:hover {
           transform: translateY(-1px);
         }
         .midnight-luxe-rsvp button:focus-visible {
           outline: 2px solid #D4AF37;
           outline-offset: 3px;
           border-radius: 9999px;
+        }
+        .midnight-luxe-rsvp button:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
       `}} />
       <section className="py-20 sm:py-28 px-6 bg-[#080808] text-[#E8C547]">
@@ -51,21 +84,44 @@ export const RSVPForm: React.FC = () => {
             We would love to celebrate with you. Please let us know if you can join us.
           </p>
           <div>
-            <div className="flex flex-col gap-6 items-center w-full max-w-xs mx-auto">
-              <input 
-                type="text" 
-                placeholder="Enter your name" 
-                className="w-full bg-transparent border-b border-[#D4AF37]/40 text-center text-white pb-3 font-sans focus:outline-none focus:border-[#D4AF37] transition-colors placeholder:text-white/30"
-              />
-              <div className="flex flex-col items-center gap-4 w-full">
-                <button type="button" className="px-10 py-4 font-sans text-xs uppercase tracking-[0.3em] transition-all duration-300 hover:opacity-75 active:scale-[0.98] cursor-pointer rounded-full w-full max-w-xs font-semibold" style={{ background: "linear-gradient(135deg, #E8C547 0%, #D4AF37 100%)", color: "#080808", border: "1px solid #E8C547" }}>
-                  Joyfully Accepts
-                </button>
-                <button type="button" className="px-10 py-4 font-sans text-xs uppercase tracking-[0.3em] transition-all duration-300 hover:opacity-75 active:scale-[0.98] cursor-pointer rounded-full w-full max-w-xs font-medium" style={{ background: "transparent", color: "rgba(255,255,255,0.72)", border: "1px solid rgba(212,175,55,0.38)" }}>
-                  Regretfully Declines
-                </button>
+            {submitted ? (
+              <div className="text-center p-6 border border-[#D4AF37]/30 rounded-2xl bg-black/20">
+                <p className="text-lg font-serif text-[#E8C547] mb-2">Thank you!</p>
+                <p className="text-sm font-sans text-white/70">Your response has been recorded.</p>
               </div>
-            </div>
+            ) : (
+              <div className="flex flex-col gap-6 items-center w-full max-w-xs mx-auto">
+                <input 
+                  type="text" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name" 
+                  className="w-full bg-transparent border-b border-[#D4AF37]/40 text-center text-white pb-3 font-sans focus:outline-none focus:border-[#D4AF37] transition-colors placeholder:text-white/30"
+                  disabled={isSubmitting}
+                />
+                {error && <p className="text-red-400 text-xs font-sans mt-[-10px]">{error}</p>}
+                <div className="flex flex-col items-center gap-4 w-full mt-2">
+                  <button 
+                    type="button" 
+                    onClick={() => handleRSVP('Accepts')}
+                    disabled={isSubmitting}
+                    className="px-10 py-4 font-sans text-xs uppercase tracking-[0.3em] transition-all duration-300 hover:opacity-75 active:scale-[0.98] cursor-pointer rounded-full w-full max-w-xs font-semibold" 
+                    style={{ background: "linear-gradient(135deg, #E8C547 0%, #D4AF37 100%)", color: "#080808", border: "1px solid #E8C547" }}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Joyfully Accepts'}
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={() => handleRSVP('Declines')}
+                    disabled={isSubmitting}
+                    className="px-10 py-4 font-sans text-xs uppercase tracking-[0.3em] transition-all duration-300 hover:opacity-75 active:scale-[0.98] cursor-pointer rounded-full w-full max-w-xs font-medium" 
+                    style={{ background: "transparent", color: "rgba(255,255,255,0.72)", border: "1px solid rgba(212,175,55,0.38)" }}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Regretfully Declines'}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -1,7 +1,6 @@
-const SPREADSHEET_ID = '1142ABNJVLxnSH7nUAf68-BjPh5CVTZX2ungN9ZRsHoA';
+const SPREADSHEET_ID = '1N4vnOVFVEk4-SwT-nwgvtF_R6E02VLz3ynLcBgXY5F0';
 const SHEET_NAMES = {
   rsvp: 'rsvp',
-  wish: 'wish',
 };
 
 function doPost(e) {
@@ -10,15 +9,20 @@ function doPost(e) {
     const payloadJson = (e && e.parameter && e.parameter.payload) || '{}';
 
     if (!SHEET_NAMES[sheetKey]) {
-      return jsonResponse({ ok: false, error: 'Invalid sheet name. Use rsvp or wish.' });
+      return jsonResponse({ ok: false, error: 'Invalid sheet name. Use rsvp.' });
     }
 
     const payload = JSON.parse(payloadJson);
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheetName = SHEET_NAMES[sheetKey];
+    
+    // Auto-create the sheet if it doesn't exist
     const sheet = spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
 
+    // Auto-create headers if the sheet is empty
     ensureHeaders(sheetKey, sheet);
+    
+    // Append the new response row
     sheet.appendRow(buildRow(sheetKey, payload));
 
     return jsonResponse({ ok: true, sheet: sheetName });
@@ -37,21 +41,26 @@ function doGet(e) {
     return jsonResponse({ ok: true, service: 'wedding-forms', timestamp: new Date().toISOString() });
   }
 
-  return jsonResponse({ ok: true, message: 'Use POST with sheet=rsvp|wish and payload=<json>' });
+  return jsonResponse({ ok: true, message: 'Use POST with sheet=rsvp and payload=<json>' });
 }
 
 function ensureHeaders(sheetKey, sheet) {
+  // If there are already rows, we don't need to add headers
   if (sheet.getLastRow() > 0) {
     return;
   }
 
   if (sheetKey === 'rsvp') {
-    sheet.appendRow(['Timestamp', 'Full Name', 'Guests', 'Dietary Notes', 'Submitted At (ISO)']);
+    sheet.appendRow(['Timestamp', 'Name', 'Status', 'Submitted At (ISO)']);
+    
+    // Format the header row to make it bold and add a background color
+    const headerRange = sheet.getRange(1, 1, 1, 4);
+    headerRange.setFontWeight("bold");
+    headerRange.setBackground("#f3f3f3");
+    
+    // Auto-resize columns for better readability
+    sheet.autoResizeColumns(1, 4);
     return;
-  }
-
-  if (sheetKey === 'wish') {
-    sheet.appendRow(['Timestamp', 'Name', 'Message', 'Submitted At (ISO)']);
   }
 }
 
@@ -61,18 +70,8 @@ function buildRow(sheetKey, payload) {
   if (sheetKey === 'rsvp') {
     return [
       now,
-      sanitize(payload.fullName),
-      Number(payload.guests || 1),
-      sanitize(payload.dietaryNotes),
-      sanitize(payload.submittedAt),
-    ];
-  }
-
-  if (sheetKey === 'wish') {
-    return [
-      now,
       sanitize(payload.name),
-      sanitize(payload.message),
+      sanitize(payload.status),
       sanitize(payload.submittedAt),
     ];
   }
@@ -92,3 +91,4 @@ function jsonResponse(data) {
     .createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
